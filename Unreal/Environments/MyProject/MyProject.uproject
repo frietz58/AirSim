@@ -9,18 +9,19 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"AirSim"
+				"AirSim",
+				"Engine"
 			]
 		}
-	],
-	"TargetPlatforms": [
-		"MacNoEditor",
-		"WindowsNoEditor"
 	],
 	"Plugins": [
 		{
 			"Name": "AirSim",
 			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"MacNoEditor",
+		"WindowsNoEditor"
 	]
 }
