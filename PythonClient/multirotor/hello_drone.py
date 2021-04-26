@@ -6,6 +6,7 @@ import os
 import tempfile
 import pprint
 import cv2
+import random
 
 # connect to the AirSim simulator
 client = airsim.MultirotorClient()
@@ -32,6 +33,25 @@ print("magnetometer_data: %s" % s)
 gps_data = client.getGpsData()
 s = pprint.pformat(gps_data)
 print("gps_data: %s" % s)
+
+print()
+target_pose = client.simGetObjectPose("SimpleTarget")
+print("Target location: {}".format(target_pose))
+
+new_target_position = target_pose.position
+new_target_position.x_val = random.randint(-6, 6)
+new_target_position.y_val = random.randint(-6, 6)
+new_target_position.z_val = random.randint(3, 4)
+
+# there is a bug here, z value appears to be inverted?
+new_target_position.z_val = new_target_position.z_val * -1
+
+target_pose.position = new_target_position
+client.simSetObjectPose("SimpleTarget", target_pose)
+print("New target location: {}".format(target_pose))
+print()
+
+# client.simSetObjectPose("SimpleTarget", )
 
 airsim.wait_key('Press any key to takeoff')
 client.takeoffAsync().join()
